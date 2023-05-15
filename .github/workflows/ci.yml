@@ -22,9 +22,10 @@ jobs:
       run: |
         pnpm build
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@releases/v4-folder-perms
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         ACCESS_TOKEN: ${{ secrets.HEXO_DEPLOY_PRIVATE_KEY }}
         # 部署到 gh-pages 分支
         BRANCH: gh-pages
         FOLDER: dist
+        CLEAN: true
