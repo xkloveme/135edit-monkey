@@ -20,10 +20,11 @@ jobs:
         run_install: true
     - name: Build
       run: |
-        npm run build
+        pnpm build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
-        ACCESS_TOKEN: ${{ secrets.SIMONW_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.TOKEN }}
         BRANCH: gh-pages
         FOLDER: dist
