@@ -14,7 +14,6 @@ jobs:
         persist-credentials: false
     - name: Install
       uses: pnpm/action-setup@v2
-      name: Install pnpm
       id: pnpm-install
       with:
         version: 7
