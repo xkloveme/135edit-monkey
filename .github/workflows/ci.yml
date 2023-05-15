@@ -21,10 +21,10 @@ jobs:
     - name: Build
       run: |
         pnpm build
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        ACCESS_TOKEN: ${{ secrets.TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist
+    - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          ACCESS_TOKEN: ${{ secrets.HEXO_DEPLOY_PRIVATE_KEY }}
+          # 部署到 gh-pages 分支
+          BRANCH: gh-pages
+          FOLDER: dist
