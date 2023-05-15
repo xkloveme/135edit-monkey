@@ -13,9 +13,12 @@ jobs:
       with:
         persist-credentials: false
     - name: Install
-      run: |
-        npm install pnpm
-        pnpm i
+      uses: pnpm/action-setup@v2
+      name: Install pnpm
+      id: pnpm-install
+      with:
+        version: 7
+        run_install: false
     - name: Build
       run: |
         npm run build
