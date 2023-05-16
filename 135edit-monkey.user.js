@@ -15,21 +15,64 @@
 (function ($) {
   'use strict';
 
-  $(".pr").hover(function() {
-    var newButton = $("<button>").css({
-      "background-color": "#f00",
-      "color": "#fff",
-      "font-size": "16px",
-      "border-radius": "5px"
+  window.onload = function() {
+    function init() {
+      console.log(11);
+      $(".pr").hover(function() {
+        console.log(22, $(this).children(".tpl-mask > div > div:nth-child(4) > i"));
+        $(this).children(".tpl-mask > div > div:nth-child(4) > i").text(function(index, curText) {
+          return "免费使用";
+        }).on("click", function() {
+          var originalId = $(this).data("id");
+          console.log("🐛 ~ file: main.js:17 ~ originalId:", originalId);
+        });
+      }, function() {
+      });
+    }
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutationRecord) {
+        if (mutationRecord.type === "attributes" && mutationRecord.attributeName === "class") {
+          if ($(mutationRecord.target).hasClass("active")) {
+            init();
+          }
+        }
+      });
     });
-    newButton.text("使用模版");
-    newButton.on("click", function() {
-      console.log($("#edui27_body"), $(this));
-      $("#edui27_body")[0].click();
+    var target = document.getElementById("left-operate-menu");
+    observer.observe(target, { attributes: true, childList: true, subtree: true, attributeFilter: ["class"] });
+    window.onbeforeunload = function(e) {
+      return null;
+    };
+    function styleClick() {
+      $(".editor-template-list > li").each(function() {
+        $(this).attr("goumai", 1);
+        $(this).removeClass("style-item  vip-style");
+      });
+    }
+    $("#style-categories li").on("click", function() {
+      styleClick();
+      console.log(22);
     });
-    $(this).children(".tpl-mask").append(newButton);
-  }, function() {
-    $(this).children(".tpl-mask").find("button").remove();
-  });
+    styleClick();
+    window.get_vip_roles = function() {
+      return [9];
+    };
+    window.initVipAds = function() {
+      return true;
+    };
+    window.publishController = {
+      open_dialog: function() {
+        $(".modal").remove();
+        $(".modal-backdrop").remove();
+      }
+    };
+  };
+  $("#editor-footer").hide();
+  $("#user-login-dialog").hide();
+  $("#top-style-tools").hide();
+  $("#fixed-side-bar > ul > li:nth-child(5)").hide();
+  $("#link-123 > div > div").hide();
+  $("#nav-header > div > div.nav-box > div > ul > li:last-child").hide();
+  $("#nav-header > div > div.nav-box > div > ul > li:nth-last-child(2)").hide();
 
 })($);
