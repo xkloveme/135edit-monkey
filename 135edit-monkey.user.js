@@ -55,7 +55,6 @@
     }
     window.style_click = window.show_role_vip_dialog = function() {
     };
-    window.loged_user = 1;
     window.get_vip_roles = function() {
       return [9];
     };
@@ -80,6 +79,9 @@
       return null;
     };
   };
+  $("#add_xiaoshi").hide();
+  $(".category-nav.editor-nav>.nav-item:nth-last-child(-n+2)").hide();
+  $("#fixed-side-bar li:not(#function-settings), #fixed-bar-pack-up").hide();
   $("#editor-footer").hide();
   $("#user-login-dialog").hide();
   $("#top-style-tools").hide();
