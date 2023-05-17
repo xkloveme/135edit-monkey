@@ -19,51 +19,16 @@ window.onload = function () {
   }
 
 
-  var observer = new MutationObserver(function (mutations) {
-    mutations.forEach(function (mutationRecord) {
-      if (mutationRecord.type === 'attributes' && mutationRecord.attributeName === 'class') {
-        if ($(mutationRecord.target).hasClass('active')) {
-          init()
-        }
-      }
-    });
-  });
-
-  var target = document.getElementById('left-operate-menu');
-  observer.observe(target, { attributes: true, childList: true, subtree: true, attributeFilter: ['class'] });
-
-  window.onbeforeunload = function (e) {
-    return null; // onbeforeunload 钩子中如果返回null的话，就不会弹出对话框（"系统可能不会保存您所做的更改"）。
-  };
 
 
   function styleClick () {
     $(".editor-template-list > li").each(function () {
       $(this).attr('goumai', 1);
-      $(this).removeClass('style-item  vip-style');
+      $(this).attr('data-paid', 1);
+      $(this).attr('data-id', 126887);
+      $(this).removeClass('vip-style');
     });
   }
-  // $(this).removeAttr("onClick");
-  // $(this).off('click');
-  // $(this).bind('click', function () {
-  //   console.log("newFunction called!", $('#edui22_iframeholder > div  > textarea'), $(this).children('section')[0].outerHTML);
-  //   let htmlCont = $(this).children('section')[0].outerHTML
-  //   $('#edui27_body').click()
-  //   setTimeout(function () {
-  //     var codeMirrorEditor = $('.CodeMirror')[0].CodeMirror;
-  //     var currentContent = codeMirrorEditor.getValue();
-  //     var newContent = currentContent + htmlCont;
-  //     codeMirrorEditor.setValue(newContent);
-  //     $('#edui27_body').click()
-  //   }, 1000)
-  //   return false
-  // });
-
-
-  $('#style-categories li').on('click', function () {
-    styleClick()
-    console.log(22)
-  });
   styleClick()
   window.get_vip_roles = function () {
     return [9]
@@ -71,12 +36,22 @@ window.onload = function () {
   window.initVipAds = function () {
     return true
   }
-  window.publishController = {
-    open_dialog: function () {
-      $('.modal').remove()
-      $('.modal-backdrop').remove()
-    }
-  }
+  var observer = new MutationObserver(function (mutations) {
+    styleClick()
+  });
+
+  var target = document.querySelector('ul.editor-template-list')
+  observer.observe(target, {
+    childList: true, // 观察子元素的变化
+    subtree: false, // 观察后代元素的变化
+    attributes: false, // 观察属性的变化
+    characterData: false // 观察文本内容的变化
+  });
+
+  window.onbeforeunload = function (e) {
+    return null; // onbeforeunload 钩子中如果返回null的话，就不会弹出对话框（"系统可能不会保存您所做的更改"）。
+  };
+
 }
 
 
