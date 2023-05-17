@@ -38,7 +38,6 @@ window.onload = function () {
   }
 
   window.style_click = window.show_role_vip_dialog = function () { };
-  window.loged_user = 1;
   window.get_vip_roles = function () {
     return [9]
   }
@@ -62,7 +61,11 @@ window.onload = function () {
 
 }
 
-
+$('#add_xiaoshi').hide();
+// 顶部导航栏后两个按钮
+$('.category-nav.editor-nav>.nav-item:nth-last-child(-n+2)').hide();
+// 移除全局菜单中非功能设置按钮
+$('#fixed-side-bar li:not(#function-settings), #fixed-bar-pack-up').hide();
 $('#editor-footer').hide()
 $('#user-login-dialog').hide()
 $('#top-style-tools').hide()
