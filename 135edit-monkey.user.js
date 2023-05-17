@@ -16,43 +16,14 @@
   'use strict';
 
   window.onload = function() {
-    function init() {
-      console.log(11);
-      $(".pr").hover(function() {
-        console.log(22, $(this).children(".tpl-mask > div > div:nth-child(4) > i"));
-        $(this).children(".tpl-mask > div > div:nth-child(4) > i").text(function(index, curText) {
-          return "免费使用";
-        }).on("click", function() {
-          var originalId = $(this).data("id");
-          console.log("🐛 ~ file: main.js:17 ~ originalId:", originalId);
-        });
-      }, function() {
-      });
-    }
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutationRecord) {
-        if (mutationRecord.type === "attributes" && mutationRecord.attributeName === "class") {
-          if ($(mutationRecord.target).hasClass("active")) {
-            init();
-          }
-        }
-      });
-    });
-    var target = document.getElementById("left-operate-menu");
-    observer.observe(target, { attributes: true, childList: true, subtree: true, attributeFilter: ["class"] });
-    window.onbeforeunload = function(e) {
-      return null;
-    };
     function styleClick() {
       $(".editor-template-list > li").each(function() {
         $(this).attr("goumai", 1);
-        $(this).removeClass("style-item  vip-style");
+        $(this).attr("data-paid", 1);
+        $(this).attr("data-id", 126887);
+        $(this).removeClass("vip-style");
       });
     }
-    $("#style-categories li").on("click", function() {
-      styleClick();
-      console.log(22);
-    });
     styleClick();
     window.get_vip_roles = function() {
       return [9];
@@ -60,11 +31,22 @@
     window.initVipAds = function() {
       return true;
     };
-    window.publishController = {
-      open_dialog: function() {
-        $(".modal").remove();
-        $(".modal-backdrop").remove();
-      }
+    var observer = new MutationObserver(function(mutations) {
+      styleClick();
+    });
+    var target = document.querySelector("ul.editor-template-list");
+    observer.observe(target, {
+      childList: true,
+      // 观察子元素的变化
+      subtree: false,
+      // 观察后代元素的变化
+      attributes: false,
+      // 观察属性的变化
+      characterData: false
+      // 观察文本内容的变化
+    });
+    window.onbeforeunload = function(e) {
+      return null;
     };
   };
   $("#editor-footer").hide();
